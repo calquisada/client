@@ -1,36 +1,67 @@
-import React from 'react'
+import React, { useState } from 'react'
+import "../styles/Register.scss"
 
 const RegisterPage = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    profileImage: null
+  });
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+      [name]: name === "profileImage" ? files[0] : value,
+    });
+  };
+
+  console.log(formData)
+
   return (
     <div className='register'>
       <h1>RegisterPage</h1>
       <div className='register_content'>
-        <form>
+        <form className="register_content_form">
           <input
             placeholder='First Name'
-            name='firstname'
+            name='firstName'
+            value={formData.firstName}
+            onChange={handleChange}
             required
           />
           <input
             placeholder='Last Name'
-            name='lastname'
+            name='lastName'
+            value={formData.lastName}
+            onChange={handleChange}
             required
           />
           <input
             placeholder='Email'
             name='email'
             type='email'
+            value={formData.email}
+            onChange={handleChange}
             required
           />
           <input
             placeholder='Password'
             name='password'
+            value={formData.password}
+            onChange={handleChange}
             type='password'
             required
           />
           <input
             placeholder='Confirm Password'
             name='confirmPassword'
+            value={formData.confirmPassword}
+            onChange={handleChange}
             type='password'
             required
           />
@@ -39,14 +70,15 @@ const RegisterPage = () => {
             type='file' 
             name='profileImage' 
             accept='image/*' 
-            style={{ display: 'none' }} 
+            style={{ display: 'none' }}
+            onChange={handleChange} 
             required 
             />
             <label htmlFor='image'>
               <img src='/assets/addImage.png' alt='profile pic' />
               <p>Upload Your Photo</p>
             </label>
-            <button>REGISTER</button>
+            <button type="submit">REGISTER</button>
         </form>
         <a href='/login'>Already have an account? Log in here!</a>
       </div>
