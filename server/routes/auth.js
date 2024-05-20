@@ -59,3 +59,5 @@ router.post("/register", upload.single('profileImage'), async (req, res) => {
         res.status(500).json({ message: "Registration failed!", error: err.message })
     }
 });
+
+module.exports = router
